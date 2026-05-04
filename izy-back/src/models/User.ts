@@ -1,0 +1,32 @@
+import mongoose, { Schema, Document } from "mongoose";
+
+export interface IUser extends Document {
+  username: string;
+  password: string;
+}
+
+const userSchema: Schema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
+
+userSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject._id;
+    delete returnedObject.password;
+  },
+});
+
+export default mongoose.model<IUser>("User", userSchema);
