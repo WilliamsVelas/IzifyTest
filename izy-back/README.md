@@ -19,7 +19,18 @@ This is the backend service for the IzyLite application. It provides the RESTful
 - Database: MongoDB
 - ORM: Mongoose
 
-### Installation & Setup
+### Docker Deployment
+1.  **Environment Setup**: Create a `.env` file from the example:
+    ```bash
+    cp .env.example .env
+    ```
+2.  **Run with Docker Compose**:
+    ```bash
+    docker-compose up --build
+    ```
+    The API will be available at `http://localhost:3000`.
+
+### Installation & Setup (Local)
 1. cd izy-back
 2. npm install
 3. Create .env file
@@ -42,7 +53,18 @@ Este es el servicio de backend para la aplicacion de IzyLite. Esto contiene una 
 - Lenguaje: TypeScript
 - Base de Datos: MongoDB
 
-### Instalación y Configuración
+### Despliegue con Docker
+1.  **Configuración de Entorno**: Crea un archivo `.env` basado en el ejemplo:
+    ```bash
+    cp .env.example .env
+    ```
+2.  **Ejecutar con Docker Compose**:
+    ```bash
+    docker-compose up --build
+    ```
+    La API estará disponible en `http://localhost:3000`.
+
+### Instalación y Configuración (Local)
 1. cd izy-back
 2. npm install
 3. Crear archivo .env
