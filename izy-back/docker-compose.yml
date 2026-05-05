@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      target: production
+    container_name: izy-back-app
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/izy-db
+      - JWT_SECRET=${JWT_SECRET:-mi_super_secreto_para_izify_2026}
+      - PORT=3000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    container_name: izy-back-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:

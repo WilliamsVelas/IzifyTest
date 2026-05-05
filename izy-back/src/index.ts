@@ -21,6 +21,6 @@ app.use("/api/products", productRoutes);
 app.use("/api/sales", salesRoutes);
 app.use("/api/auth", authRoutes);
 
-app.listen(3000, "0.0.0.0", () => {
-  console.log("Servidor corriendo en el puerto 3000");
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
