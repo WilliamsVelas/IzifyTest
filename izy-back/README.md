@@ -4,7 +4,7 @@ This is the backend service for the IzyLite application. It provides the RESTful
 
 ---
 
-## ???? English
+## English
 
 ### Features
 - Authentication: JWT-based secure login and registration.
@@ -26,22 +26,23 @@ This is the backend service for the IzyLite application. It provides the RESTful
 4. npm run dev
 
 ---
+Este es el servicio de backend para la aplicacion de IzyLite. Esto contiene una API que se encarga de gestionar la autenticacion, inventario y las transacciones de ventas
 
-## ???? Espa駉l
+## Espa帽ol
 
-### Caracter韘ticas
-- Autenticaci髇: Inicio de sesi髇 y registro seguro basado en JWT.
-- Gesti髇 de Productos: Endpoints para manejar el cat醠ogo de productos y el stock.
-- Procesamiento de Ventas: L骻ica para registrar transacciones y generar reportes.
+### Caracter铆sticas
+- Autenticaci贸n: Inicio de sesi贸n y registro seguro basado en JWT.
+- Gesti贸n de Productos: Endpoints para manejar el cat谩logo de productos y el stock.
+- Procesamiento de Ventas: L贸gica para registrar transacciones y generar reportes.
 - Persistencia de Datos: Utiliza MongoDB con Mongoose para un almacenamiento de datos confiable.
 
-### Stack Tecnol骻ico
+### Stack Tecnol贸gico
 - Entorno: Node.js
 - Framework: Express.js
 - Lenguaje: TypeScript
 - Base de Datos: MongoDB
 
-### Instalaci髇 y Configuraci髇
+### Instalaci贸n y Configuraci贸n
 1. cd izy-back
 2. npm install
 3. Crear archivo .env
