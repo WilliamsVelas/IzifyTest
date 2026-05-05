@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/User";
 import { sendResponse } from "../utils/responseHandler";
 
-const JWT_SECRET = "mi_super_secreto_para_izify_2026";
+const JWT_SECRET = process.env.JWT_SECRET || "mi_super_secreto_para_izify_2026";
 
 export const register = async (req: Request, res: Response) => {
   try {

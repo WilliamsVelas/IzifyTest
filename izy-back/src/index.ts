@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+
 import { connectDB } from "./config/database";
 import productRoutes from "./routes/product.routes";
 import salesRoutes from "./routes/sales.routes";
 import authRoutes from "./routes/auth.routes";
 import cors from "cors";
-
-dotenv.config();
 
 connectDB();
 

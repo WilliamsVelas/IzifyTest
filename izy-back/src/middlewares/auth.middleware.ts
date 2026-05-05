@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { sendResponse } from "../utils/responseHandler";
 
-const JWT_SECRET = "mi_super_secreto_para_izify_2026";
+const JWT_SECRET = process.env.JWT_SECRET || "mi_super_secreto_para_izify_2026";
 
 export interface AuthRequest extends Request {
   user?: any;

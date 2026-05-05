@@ -9,7 +9,11 @@ import {
   deleteUnit
 } from "../controllers/product.controller";
 
+import { verifyToken } from "../middlewares/auth.middleware";
+
 const router = Router();
+
+router.use(verifyToken);
 
 router.get("/", getProducts);
 router.post("/", createProduct);
