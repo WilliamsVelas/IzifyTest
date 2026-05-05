@@ -57,12 +57,10 @@ class IzifyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: isLoggedIn
-          ? const Scaffold(body: Center(child: Text('Pantalla de Productos')))
-          : BlocProvider(
-              create: (context) => AuthBloc(repository: AuthRepository()),
-              child: const LoginScreen(),
-            ),
+      home: BlocProvider(
+        create: (context) => AuthBloc(repository: AuthRepository()),
+        child: const LoginScreen(),
+      ),
     );
   }
 }

@@ -29,6 +29,25 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  void _submitLogin() {
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (username.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Por favor, ingresa tu usuario y contraseña'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    context.read<AuthBloc>().add(
+      LoginSubmitted(username: username, password: password),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,57 +90,44 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: AppColors.primary,
                 ),
                 textInputAction: TextInputAction.done,
-                onFieldSubmitted: (_) {
-                  context.read<AuthBloc>().add(
-                    LoginSubmitted(
-                      username: _usernameController.text.trim(),
-                      password: _passwordController.text.trim(),
-                    ),
-                  );
-                },
+                onFieldSubmitted: (_) => _submitLogin(),
               ),
 
               const SizedBox(height: 32),
 
               BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => MultiRepositoryProvider(
-                        providers: [
-                          RepositoryProvider(
-                            create: (context) => SalesRepository(),
-                          ),
-                          RepositoryProvider(
-                            create: (context) => ProductsRepository(),
-                          ),
-                        ],
-                        child: const DashboardScreen(),
+                  if (state is AuthSuccess) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MultiRepositoryProvider(
+                          providers: [
+                            RepositoryProvider(
+                              create: (context) => SalesRepository(),
+                            ),
+                            RepositoryProvider(
+                              create: (context) => ProductsRepository(),
+                            ),
+                          ],
+                          child: const DashboardScreen(),
+                        ),
                       ),
-                    ),
-                  );
-                  // if (state is AuthSuccess) {
-                  //   CustomSnackbar.success(
-                  //     context,
-                  //     'Has iniciado sesión correctamente.',
-                  //   );
-                  // } else if (state is AuthError) {
-                  //   CustomSnackbar.error(context, state.message);
-                  // }
+                    );
+                  } else if (state is AuthError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
                 builder: (context, state) {
                   return CustomButton(
                     isLoading: state is AuthLoading,
-                    onPressed: () {
-                      context.read<AuthBloc>().add(
-                        LoginSubmitted(
-                          username: _usernameController.text.trim(),
-                          password: _passwordController.text.trim(),
-                        ),
-                      );
-                    },
-                    child: Text('Iniciar Sesión'),
+                    onPressed: state is AuthLoading ? null : _submitLogin,
+                    child: const Text('Iniciar Sesión'),
                   );
                 },
               ),
