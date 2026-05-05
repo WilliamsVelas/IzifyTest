@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/constans/Colors.dart';
+import '../../../core/storage/token.dart';
 import '../../products/presentation/product_screen.dart';
 import '../../sales/presentation/sales_screen.dart';
 
-class DashboardScreen extends StatelessWidget {
-  final String userName;
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
 
-  const DashboardScreen({Key? key, this.userName = 'Administrador'}) : super(key: key);
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  String _userName = 'Cargando...';
+  final TokenStorage _storage = TokenStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final name = await _storage.getUsername();
+    if (mounted) {
+      setState(() {
+        _userName = name ?? 'Usuario';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +61,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      userName,
+                      _userName,
                       style: textTheme.titleMedium?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -65,7 +87,7 @@ class DashboardScreen extends StatelessWidget {
           ),
         ),
         body: const TabBarView(
-          children: [ SalesScreen(), ProductsScreen() ],
+          children: [SalesScreen(), ProductsScreen()],
         ),
       ),
     );
